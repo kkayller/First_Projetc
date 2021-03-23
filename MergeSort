@@ -1,0 +1,81 @@
+#include <iostream>
+using namespace std;
+
+// Mescla dois subarrays de arr [].
+// O primeiro subarray é arr [l..m]
+// O segundo subarray é arr [m + 1..r]
+void merge(int arr[], int l, int m, int r){
+	int n1 = m - l + 1;
+	int n2 = r - m;
+  // Criar matrizes temporárias
+	int L[n1], R[n2];
+  // Copiar dados para matrizes temporárias L [] e R []
+	for (int i = 0; i < n1; i++)
+	  L[i] = arr[l + i];
+	for (int j = 0; j < n2; j++)
+	  R[j] = arr[m + 1 + j];
+  // Mesclar as matrizes temporárias de volta em arr [l..r]
+  // Índice inicial do primeiro subarray
+  int i = 0;
+  // Índice inicial do segundo subarray
+  int j = 0;
+  // Índice inicial do subarray mesclado
+  int k = l;
+	while (i < n1 && j < n2){
+		if (L[i] <= R[j]){
+			  arr[k] = L[i];
+			  i++;
+		} else{
+			  arr[k] = R[j];
+			  j++;
+		  }
+		k++;
+	}
+	// Copia os elementos restantes de
+  // L [], se houver algum
+	while (i < n1) {
+		arr[k] = L[i];
+		i++;
+		k++;
+	}
+	// Copia os elementos restantes de
+  // R [], se houver algum
+	while (j < n2) {
+		arr[k] = R[j];
+		j++;
+		k++;
+	}
+}
+// l é para o índice esquerdo e r é
+// índice direito da submatriz
+// de chegada a ser classificado * /
+void mergeSort(int arr[],int l,int r){
+	if(l>=r){
+		return;//retorna recursivamente
+	}
+	int m =l+ (r-l)/2;
+	mergeSort(arr,l,m);
+	mergeSort(arr,m+1,r);
+	merge(arr,l,m,r);
+}
+// FUNÇÕES UTILITÁRIAS
+// Função para imprimir um array
+void printArray(int A[], int size){
+	  for (int i = 0; i < size; i++)
+		cout << A[i] << " ";
+}
+// Código do driver
+int main(){
+	int arr[] = { 12, 11, 13, 5, 6, 7 };
+	int arr_size = sizeof(arr) / sizeof(arr[0]);
+
+	cout << "O array fornecido e: \n";
+	printArray(arr, arr_size);
+
+	mergeSort(arr, 0, arr_size - 1);
+
+	cout << "\nO array ordenado e: \n";
+	printArray(arr, arr_size);
+	return 0;
+}
+
