@@ -1,0 +1,54 @@
+/*
+ * ============================================================================
+ *
+ *
+ *    Descrição:  Implementação do algoritmo Quicksort
+ *
+ *        Criado:  023/03/2021 10:55 
+ *
+ *         Autor:  Kayller Kaique (kkayller@gmail.com)
+ *
+ * ============================================================================
+ */
+
+
+#include <iostream>
+using namespace std;
+void quicksort(int valores[], int inicio, int fim){
+	  int i, j, pivo, aux;//variáveis de inicio, fim e pivô
+	  i = inicio;
+	  j = fim-1;
+	  pivo = valores[(inicio + fim) / 2];//Pivô recebe valores inicio e fim dividido por 2, obtfimo o pivô para começar a separar o vetor.
+	while(i <= j){//Enquanto o inicio "i", for menor ou igual ao fim"j".
+		  while(valores[i] < pivo && i < fim){//Enquanto o inicio "i", for menor que o Pivô "pivo"e menor que  fim"j"= fim -1.
+			  i++;
+	}
+		    while(valores[j] > pivo && j > inicio){//Enquanto "j"= fim, maior que Pivô "pivo" e maior que Inicio"
+			  j--;
+		    }
+		    if(i <= j){
+			    aux = valores[i];
+			    valores[i] = valores[j];
+			    valores[j] = aux;
+			    i++;
+			    j--;  
+		    }
+	}
+	  if(j > inicio)
+		  quicksort(valores, inicio, j+1);
+	  if(i < fim)
+		  quicksort(valores, i, fim);
+}
+
+int main(int argc, char *argv[]){
+	  int array[10] = {5, 8, 1, 2, 7, 3, 6, 9, 4, 10};
+	    for(int i = 0; i < 10; i++) {
+	    cout << array[i] << ' ';
+	    }
+	    cout << endl;
+	  quicksort(array, 0, 10);
+	      for(int i = 0; i < 10; i++){
+	        cout << array[i] << ' ';
+	      }
+	return 0;
+}
